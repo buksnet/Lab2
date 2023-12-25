@@ -101,6 +101,21 @@ double diff2(double x0)
 	return exp(x0) - exp(-x0);
 }
 
+double half_division(fptr f, double a, double b)
+{
+	double xn = (a + b) / 2, eps = 0.000001;
+	while (((*f)(xn) != 0) && (abs(a - b) > eps)){
+		if (((*f)(xn) < 0 && (*f)(a) > 0) || ((*f)(xn) > 0 && (*f)(a) < 0)){
+			b = xn;
+		}
+		else{
+			a = xn;
+		}
+		xn = (a+b)/2;
+	}
+	return xn;
+}
+
 double Newton(fptr f, double a, double b)
 {
 	double eps = 0.000001;
@@ -121,14 +136,14 @@ double Newton(fptr f, double a, double b)
 
 double xfunc(double x)
 {
-	return log(2) - x;
+	return log(exp(-x)+2);
 }
 
 double iterations(xfptr f, double a, double b)
 {
 	double xn1 = b, temp, xn, eps = 0.000001;
 	xn = (*f)(xn1);
-	while (abs(xn - xn1) <= eps) {
+	while (abs(xn - xn1) > eps) {
 		xn1 = xn;
 		xn = (*f)(xn1);
 	}
@@ -193,6 +208,8 @@ void BinSearchTemplateTest()
 
 void FunctionsTest()
 {
+	cout << "Half-division:" << endl;
+	cout << "X = " << half_division(func, 0.0, 1.0) << endl;
 	cout << "Newton:" << endl;
 	cout << "X = " << Newton(func, 0.0, 1.0) << endl;
 	cout << "Iteratons:" << endl;

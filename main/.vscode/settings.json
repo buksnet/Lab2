@@ -5,7 +5,8 @@
         "iostream": "cpp",
         "xutility": "cpp",
         "initializer_list": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "cmath": "cpp"
     },
     "cSpell.words": [
         "onyetenyevwe",
